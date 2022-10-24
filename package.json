@@ -1,0 +1,77 @@
+{
+    "name": "npm-publish-class",
+    "version": "1.0.0",
+    "description": "A project to be presented in the CICD class",
+    "main": "src/index.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/luizoamorim/npm-publish-class.git"
+    },
+    "scripts": {
+        "build": "tsc",
+        "test": "mocha __tests__/**/*.ts",
+        "prepare": "husky install",
+        "pre": "npx prettier --write . && npx eslint --fix",
+        "semantic-release": "semantic-release"
+    },
+    "author": "luizoamorim",
+    "license": "ISC",
+    "devDependencies": {
+        "@commitlint/cli": "^17.1.2",
+        "@commitlint/config-conventional": "^17.1.0",
+        "@semantic-release/changelog": "^6.0.1",
+        "@semantic-release/git": "^10.0.1",
+        "@types/chai": "^4.3.3",
+        "@types/mocha": "^10.0.0",
+        "@typescript-eslint/eslint-plugin": "^5.40.1",
+        "@typescript-eslint/parser": "^5.40.1",
+        "chai": "^4.3.6",
+        "commitizen": "^4.2.5",
+        "cz-conventional-changelog": "^3.3.0",
+        "eslint": "^8.25.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-prettier": "^4.2.1",
+        "husky": "^8.0.1",
+        "mocha": "^10.1.0",
+        "prettier": "2.7.1",
+        "semantic-release": "^19.0.5",
+        "typescript": "^4.8.4"
+    },
+    "config": {
+        "commitizen": {
+            "path": "./node_modules/cz-conventional-changelog"
+        }
+    },
+    "release": {
+        "branches": [
+            "+([0-9])?(.{+([0-9]),x}).x",
+            "master",
+            "next",
+            "next-major",
+            {
+                "name": "beta",
+                "prerelease": true
+            },
+            {
+                "name": "alpha",
+                "prerelease": true
+            }
+        ],
+        "tagFormat": "v${version}",
+        "plugins": [
+            "@semantic-release/commit-analyzer",
+            "@semantic-release/release-notes-generator",
+            "@semantic-release/npm",
+            [
+                "@semantic-release/github",
+                {
+                    "assets": [
+                        "dist/**"
+                    ]
+                }
+            ],
+            "@semantic-release/git",
+            "@semantic-release/changelog"
+        ]
+    }
+}
